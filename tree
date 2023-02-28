@@ -4,11 +4,12 @@ namespace yeet{
 	template <typename val, typename cmp = std::less<val>>
 	class node{
 		val value;
+		node *parent;
 		node *left;
 		node *right;
 	public:
 		node();
-		node(val value, node *left = nullptr, node *right = nullptr);
+		node(val value, node *left = nullptr, node *right = nullptr, node *parent = nullptr);
 		node(const node &other);
 		node(node && other);
 		~node();
@@ -19,10 +20,12 @@ namespace yeet{
 		val get_value();
 		node *leftptr();
 		node *rightptr();
+		node *parentptr();
 
 		void set_value(val value);
 		void setleft(node *left);
 		void setright(node *right); 
+		void setparent(node *parent);
 	};
 	template <typename val, typename cmp = std::less<val>>
 	class tree{

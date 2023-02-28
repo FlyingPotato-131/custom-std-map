@@ -1,0 +1,32 @@
+#include <functional>
+namespace yeet{
+	template <typename val, typename cmp = std::less<val>>
+	class node{
+		val value;
+		node *left;
+		node *right;
+	public:
+		node();
+		node(val value, node *left = nullptr, node *right = nullptr);
+		~node();
+
+		val get_value();
+		node *leftptr();
+		node *rightptr();
+
+		void set_value(val value);
+		void setleft(node *left);
+		void setright(node *right); 
+	};
+	template <typename val, typename cmp = std::less<val>>
+	class tree{
+		node<val, cmp> *head;
+	public:
+		tree();
+		tree(node<val, cmp> nd);
+		~tree();	
+
+		void leftrot();
+		void rightrot();
+	};
+}

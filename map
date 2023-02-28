@@ -1,0 +1,10 @@
+#include <map.h>
+#include <tree.h>
+#include <functional>
+
+namespace yeet{
+	template<typename key, typename val, typename cmp = std::less<key>>
+	class map{
+
+	}
+}

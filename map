@@ -1,10 +1,81 @@
-#include <map.h>
-#include <tree.h>
+#pragma once
+#include "tree"
 #include <functional>
 
 namespace yeet{
-	template<typename key, typename val, typename cmp = std::less<key>>
+	template<typename Key, typename val, typename cmp = std::less<Key>>
 	class map{
+		tree<std::pair<Key, val>, cmp> data;	
+		class iterator{
+			map *iterator;
+		public:
+			iterator();
+			iterator(map &m);
+			~iterator();
+			map::iterator &operator=(map::iterator it);
+			map::iterator &operator+(int n);
+			map &operator*() const;
+			map *operator->() const;
+		};
+		class const_iterator{
+			const_iterator();
+			const_iterator(map &m);
+			~const_iterator();
+			map::const_iterator &operator=(const_iterator it);
+			map::const_iterator &operator+(int n);
+			map &operator*() const;
+			map *operator->() const;
+		};
+	public:
+		map(cmp &comp);
+		map(std::pair<Key, val> *first, std::pair<Key, val> *last, cmp &comp);
+		map(const map &other);
+		map(map &&other);
+		~map();
 
-	}
+		map& operator=(const map &other);
+		map& operator=(map &&other);
+
+		val& at(const Key& key);
+		const val& at(const Key &key) const;
+
+		val& operator[](const Key &key);
+		val& operator[](Key &&key);
+
+		iterator begin();
+		const_iterator begin() const;
+		iterator end();
+		const_iterator end() const;
+
+		bool empty() const;
+		std::size_t size() const;
+		std::size_t max_size() const;
+
+		void clear();
+		std::pair<iterator, bool> insert(const std::pair<Key, val> &value);
+		std::pair<iterator, bool> insert_or_assign(const Key &key, val &value);
+
+		iterator erase(iterator pos);
+		iterator erase(const_iterator pos);
+		iterator erase(iterator first, iterator last);
+		iterator erase(const_iterator first, const_iterator last);
+		std::size_t erase(const Key &key);
+
+		void swap(map &other);
+		yeet::node<val, cmp> extract(const_iterator pos);
+		yeet::node<val, cmp> extract(const Key &key);
+
+		void merge(map<Key, val, cmp>);
+		std::size_t count(const Key &key) const;
+		iterator find(const Key &key);
+		const_iterator find(const Key &key) const;
+		bool contains(const Key &key) const;
+		std::pair<iterator, iterator> equal_range(const Key &key);
+		std::pair<const_iterator, const_iterator> equal_range(const Key &key) const;
+		iterator lower_bound(const Key &key);
+		const_iterator lower_bound(const Key &key) const;
+		iterator upper_bound(const Key &key);
+		const_iterator upper_bound(const Key &key) const;
+
+	};
 }

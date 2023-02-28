@@ -1,3 +1,4 @@
+#pragma once
 #include <functional>
 namespace yeet{
 	template <typename val, typename cmp = std::less<val>>
@@ -8,7 +9,12 @@ namespace yeet{
 	public:
 		node();
 		node(val value, node *left = nullptr, node *right = nullptr);
+		node(const node &other);
+		node(node && other);
 		~node();
+
+		node& operator=(const node &other);
+		node& operator=(node &&other);
 
 		val get_value();
 		node *leftptr();
@@ -24,7 +30,12 @@ namespace yeet{
 	public:
 		tree();
 		tree(node<val, cmp> nd);
+		tree(const tree &other);
+		tree(tree &&other);
 		~tree();	
+
+		tree& operator=(const tree &other);
+		tree& operator=(tree &&other);
 
 		void leftrot();
 		void rightrot();

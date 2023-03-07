@@ -1,12 +1,14 @@
 #pragma once
 #include <functional>
+#include "tree.h"
 namespace yeet{
 	template <typename val, typename cmp = std::less<val>>
-	class node{
+	struct node{
 		val value;
 		node *parent;
 		node *left;
 		node *right;
+		unsigned int height;
 	public:
 		node();
 		node(val value, node *left = nullptr, node *right = nullptr, node *parent = nullptr);
@@ -14,33 +16,41 @@ namespace yeet{
 		node(node && other);
 		~node();
 
-		node& operator=(const node &other);
-		node& operator=(node &&other);
+		// node& operator=(const node &other);
+		// node& operator=(node &&other);
 
-		val get_value();
+		val getvalue();
 		node *leftptr();
 		node *rightptr();
 		node *parentptr();
 
-		void set_value(val value);
+		void setvalue(val value);
 		void setleft(node *left);
 		void setright(node *right); 
 		void setparent(node *parent);
-	};
-	template <typename val, typename cmp = std::less<val>>
-	class tree{
-		node<val, cmp> *head;
-	public:
-		tree();
-		tree(node<val, cmp> nd);
-		tree(const tree &other);
-		tree(tree &&other);
-		~tree();	
 
-		tree& operator=(const tree &other);
-		tree& operator=(tree &&other);
+		void updateheight();
 
 		void leftrot();
 		void rightrot();
 	};
+
+	// template<typename val, typename cmp = std::less<val>>
+	// using tree = node<val, cmp>;
+	// template <typename val, typename cmp = std::less<val>>
+	// struct tree{
+	// 	node<val, cmp> *head;
+	// public:
+	// 	tree();
+	// 	tree(node<val, cmp> nd);
+	// 	tree(const tree &other);
+	// 	tree(tree &&other);
+	// 	~tree();	
+
+	// 	// tree& operator=(const tree &other);
+	// 	// tree& operator=(tree &&other);
+
+	// 	void leftrot();
+	// 	void rightrot();
+	// };
 }
